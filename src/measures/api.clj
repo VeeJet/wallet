@@ -1,14 +1,20 @@
 (ns measures.api
   (:require [compojure.core :refer :all]
-            ))
+            [main.database :as db]))
 
+(defn create-measure [req] (db/create-measure (req :json-data)))
+(defn update-measure [data] (db/update-measure data))
+(defn delete-measure [data] (db/delete-measure data))
+(defn get-all-measures [data] (db/get-all-measures data))
+(defn get-param-from-request [request]
+  {:name (get-in request [:json-data :name]) :id (get-in request [:params :id])})
 
 (defroutes measures_routes
            (context "/measures" []
-             (GET "/" [] {:body [{:id 1 :name "шт."} {:id 2 :name "кг."}]})
-             (POST "/" [] {:body {:id 1 :name "шт."} :status 201})
-             (PUT "/:id" [] {:body {:id 1 :name "кг."}})
-             (DELETE "/:id" [] {:body nil :status 204})))
+             (GET "/" req {:body (get-all-measures req)})
+             (POST "/" req {:body (create-measure req) :status 201})
+             (PUT "/:id" req {:body (update-measure (get-param-from-request req)) })
+             (DELETE "/:id" req {:body (do (delete-measure (get-param-from-request req)) nil) :status 204})))
 
 
 
