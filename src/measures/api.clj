@@ -1,11 +1,11 @@
 (ns measures.api
   (:require [compojure.core :refer :all]
-            [main.database :as db]))
+            [measures.queries :as queries]))
 
-(defn create-measure [req] (db/create-measure (req :json-data)))
-(defn update-measure [data] (db/update-measure data))
-(defn delete-measure [data] (db/delete-measure data))
-(defn get-all-measures [data] (db/get-all-measures data))
+(defn create-measure [req] (queries/create-measure (req :json-data)))
+(defn update-measure [data] (queries/update-measure data))
+(defn delete-measure [data] (queries/delete-measure data))
+(defn get-all-measures [data] (queries/get-all-measures data))
 (defn get-param-from-request [request]
   {:name (get-in request [:json-data :name]) :id (get-in request [:params :id])})
 

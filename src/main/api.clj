@@ -2,7 +2,8 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [cheshire.core :refer [parse-string generate-string]]
-            [measures.api :refer [measures_routes]]))
+            [measures.api :refer [measures_routes]]
+            [products.api :refer [products_routes]]))
 
 
 ;; Middleware
@@ -50,5 +51,6 @@
 (def app
   (wrap-json
     (routes
+      products_routes
       measures_routes
       main_routes)))

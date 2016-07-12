@@ -1,4 +1,4 @@
-(ns db.measures
+(ns measures.db
   (:require
     [environ.core :refer [env]]
     [clojure.java.jdbc :as jdbc]))
