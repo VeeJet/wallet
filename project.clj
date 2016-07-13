@@ -9,7 +9,9 @@
                  [http-kit "2.1.19"]
                  [cheshire "5.6.0"]
                  [compojure "1.4.0"]
-                 [ring/ring-defaults "0.1.5"]]
+                 [ring/ring-defaults "0.1.5"]
+                 [clj-time "0.12.0"]
+                 [org.clojure/data.json "0.2.6"]]
   :plugins [[lein-ring "0.9.7"]
             [lein-environ "1.0.2"]]
   :main main.server

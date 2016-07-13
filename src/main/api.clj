@@ -3,7 +3,8 @@
             [compojure.route :as route]
             [cheshire.core :refer [parse-string generate-string]]
             [measures.api :refer [measures_routes]]
-            [products.api :refer [products_routes]]))
+            [products.api :refer [products_routes]]
+            [purchases.api :refer [purchases_routes]]))
 
 
 ;; Middleware
@@ -31,7 +32,7 @@
         json (cond
                (and (= method :get) query-string) (string-to-keywords query-string) ;квери стринг который трансформируем в JSON
                :else (merge (typecheck (:route-params req)) (or (and body (-> body slurp (parse-string true))) {})))]
-    (assoc req :json-data json)))
+    (assoc req :body json)))
 
 (defn wrap-json [handler]
   (fn [request]
@@ -53,4 +54,5 @@
     (routes
       products_routes
       measures_routes
+      purchases_routes
       main_routes)))

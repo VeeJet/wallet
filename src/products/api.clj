@@ -2,13 +2,13 @@
   (:require [compojure.core :refer :all]
             [products.queries :as products]))
 
-(defn create-product [req] (products/create-product (req :json-data)))
+(defn create-product [req] (products/create-product (req :body)))
 (defn update-product [data] (products/update-product data))
 (defn delete-product [data] (products/delete-product data))
 (defn get-all-product [data] (products/get-all-product data))
 (defn get-param-from-request [request]
-  {:name (get-in request [:json-data :name])
-   :measure (get-in request [:json-data :measure])
+  {:name (get-in request [:body :name])
+   :measure (get-in request [:body :measure])
    :id (get-in request [:params :id])})
 
 (defroutes products_routes

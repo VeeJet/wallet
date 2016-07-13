@@ -32,9 +32,30 @@
   (jdbc/db-do-commands db-spec
                        (jdbc/drop-table-ddl :products)))
 
+;Purchases
+
+(defn create-purchase-table []
+  (jdbc/db-do-commands db-spec
+                       (jdbc/create-table-ddl :purchases
+                                              [:list :jsonb]
+                                              [:date :timestamp]
+                                              [:id :serial])))
+(defn drop-purchase-table []
+  (jdbc/db-do-commands db-spec
+                       (jdbc/drop-table-ddl :purchases)))
+
 (defn products-test-fixture [f]
   (create-measures-table)
   (create-products-table)
   (f)
   (drop-measures-table)
   (drop-products-table))
+
+(defn purchases-test-fixture [f]
+  (create-measures-table)
+  (create-products-table)
+  (create-purchase-table)
+  (f)
+  (drop-measures-table)
+  (drop-products-table)
+  (drop-purchase-table))

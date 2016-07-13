@@ -2,12 +2,12 @@
   (:require [compojure.core :refer :all]
             [measures.queries :as queries]))
 
-(defn create-measure [req] (queries/create-measure (req :json-data)))
+(defn create-measure [req] (queries/create-measure (req :body)))
 (defn update-measure [data] (queries/update-measure data))
 (defn delete-measure [data] (queries/delete-measure data))
 (defn get-all-measures [data] (queries/get-all-measures data))
 (defn get-param-from-request [request]
-  {:name (get-in request [:json-data :name]) :id (get-in request [:params :id])})
+  {:name (get-in request [:body :name]) :id (get-in request [:params :id])})
 
 (defroutes measures_routes
            (context "/measures" []
